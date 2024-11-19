@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enquête RH interactive et moderne">
+    <title>Enquête RH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Style global */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #eceff1, #cfd8dc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: center;
+        }
+
+        .form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form textarea, .form select, .form input[type="text"], 
+        .form input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .form textarea:focus, .form select:focus, .form input[type="text"]:focus, 
+        .form input[type="number"]:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        .form button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .form button:hover {
+            background-color: #45a049;
+            transform: scale(1.02);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            color: #4caf50;
+            text-align: center;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .navigation-buttons button {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .form-page {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .form-page.active {
+            opacity: 1;
+            visibility: visible;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form class="form">
+            <!-- Page 1 : Accueil et intégration -->
+            <div class="form-page active" id="page-1">
+                <h2>Enquête RH</h2>
+                <div class="section-title">Accueil et Intégration</div>
+                <label for="accueil">Vous a-t-on accueilli le 1er jour ? Si oui, par qui ?</label>
+                <textarea id="accueil" name="accueil" rows="2"></textarea>
+                <label for="tuilage">Avez-vous bénéficié d'un tuilage ?</label>
+                <select id="tuilage" name="tuilage">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+                <label for="valisette">Vous a-t-on remis la "valisette" du nouvel arrivant ?</label>
+                <select id="valisette" name="valisette">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+                <label for="suggestions-integration">Vos suggestions pour améliorer cette phase :</label>
+                <textarea id="suggestions-integration" name="suggestions-integration" rows="2"></textarea>
+            </div>
+
+            <!-- Page 2 : Contrat et conditions de travail -->
+            <div class="form-page" id="page-2">
+                <h2>Contrat et Conditions de Travail</h2>
+                <div class="section-title">Détails du Contrat</div>
+                <label for="contrat-signature">À quel moment avez-vous signé le contrat ?</label>
+                <input type="text" id="contrat-signature" name="contrat-signature">
+                <label for="poste">Quel est l'intitulé du poste ? Quelles sont vos missions ?</label>
+                <textarea id="poste" name="poste" rows="2"></textarea>
+                <label for="statut-cadre">Êtes-vous sous statut cadre ?</label>
+                <select id="statut-cadre" name="statut-cadre">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+                <label for="contrat-heures">Quel est le nombre d'heures par semaine ?</label>
+                <input type="number" id="contrat-heures" name="contrat-heures">
+                <label for="preavis">Durée du préavis pour rupture de contrat :</label>
+                <input type="text" id="preavis" name="preavis">
+            </div>
+
+            <!-- Page 3 : Rémunération -->
+            <div class="form-page" id="page-3">
+                <h2>Rémunération</h2>
+                <div class="section-title">Détails de la rémunération</div>
+                <label for="remuneration-embauche">Niveau de rémunération proposé à l'embauche :</label>
+                <input type="text" id="remuneration-embauche" name="remuneration-embauche">
+                <label for="remuneration-actuelle">Rémunération actuelle :</label>
+                <input type="text" id="remuneration-actuelle" name="remuneration-actuelle">
+                <label for="treizieme-mois">Bénéficiez-vous d'un treizième mois ?</label>
+                <select id="treizieme-mois" name="treizieme-mois">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+                <label for="primes">Bénéficiez-vous de primes ? Si oui, montant et régularité :</label>
+                <textarea id="primes" name="primes" rows="2"></textarea>
+            </div>
+
+            <!-- Page 4 : Formations -->
+            <div class="form-page" id="page-4">
+                <h2>Formations</h2>
+                <div class="section-title">Détails des formations</div>
+                <label for="formations">Bénéficiez-vous de formations ?</label>
+                <select id="formations" name="formations">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+                <label for="formation-jours">Nombre de jours par an :</label>
+                <input type="number" id="formation-jours" name="formation-jours">
+                <label for="opco">Connaissez-vous votre OPCO ?</label>
+                <select id="opco" name="opco">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+            </div>
+
+            <!-- Navigation -->
+            <div class="navigation-buttons">
+                <button type="button" id="prev-button" class="hidden">Précédent</button>
+                <button type="button" id="next-button">Suivant</button>
+                <button type="submit" id="submit-button" class="hidden">Envoyer</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const pages = document.querySelectorAll('.form-page');
+        const nextButton = document.getElementById('next-button');
+        const prevButton = document.getElementById('prev-button');
+        const submitButton = document.getElementById('submit-button');
+        let currentPage = 0;
+
+        function showPage(index) {
+            pages.forEach((page, i) => {
+                page.classList.toggle('active', i === index);
+            });
+            prevButton.classList.toggle('hidden', index === 0);
+            nextButton.classList.toggle('hidden', index === pages.length - 1);
+            submitButton.classList.toggle('hidden', index !== pages.length - 1);
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+
+        showPage(currentPage);
+    </script>
+</body>
+</html>
